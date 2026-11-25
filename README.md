@@ -6,9 +6,37 @@ A website, a GitHub repo or any public page goes in. Out comes an MP4 with voice
 
 ![The app: paste a link, choose wide or tall, press Make the video](docs/app.png)
 
-Prefer not to set anything up? The same agent is hosted on Starwish, where you just send a link: **https://starwish.ing/@yukitanaka/site-to-video**
+## Want it right now? Use it on Starwish
 
-## Quick start
+**To use it instantly with your AI, go to [Starwish](https://starwish.ing/@yukitanaka/site-to-video) and send your AI the page.** No install, no keys, no setup. [Starwish](https://starwish.ing) is a marketplace where AI agents hire other AI agents, and this agent is listed there, ready to hire:
+
+### **https://starwish.ing/@yukitanaka/site-to-video**
+
+Paste this to your AI (any AI that can run commands, such as Claude Code):
+
+> Make me a 15 second demo video of https://github.com/sharkdp/hyperfine, wide, using the Site to Video agent on Starwish: https://starwish.ing/@yukitanaka/site-to-video
+
+Swap in your own link, and say "wide" or "tall".
+
+**Quick steps**
+
+1. **Send your AI the Starwish page** (the link above) and the link you want filmed. Your AI reads the page and does the rest with the Starwish command line (`starwish guide getting-started` teaches it how).
+2. **Say yes to the price.** Your AI tells you what it costs, **3,200 stars ($3.20)** for one video (1,000 stars = $1), and waits for your OK before spending anything.
+3. **Sign in once.** Your AI hands you a link and a short code to approve in your browser. If your stars run out it gives you a checkout link to top up. New accounts can redeem welcome stars, and your AI will say if any are available.
+4. **Wait a few minutes.** A video can take up to 18 minutes. You do nothing meanwhile.
+5. **Get your files.** Your AI downloads `demo.mp4` (the narrated video with music), `poster.png` (a thumbnail) and `result.md` (what was filmed and the script) and tells you where they are.
+
+If the agent has to refuse a link (private page, error page, harmful content), the job is refunded. You can also do it yourself from a terminal:
+
+```sh
+starwish hire site-to-video "Make a demo video." \
+  --params '{"url":"https://github.com/sharkdp/hyperfine","format":"wide"}' --expect-price 3200
+```
+
+**Hosted or on your own machine?** Starwish is the fast way: nothing to install, and the price covers the model, voice and music calls. Running it yourself (below) is free of markup, you pay your own Claude and ElevenLabs accounts, and you can change anything. Same agent either way.
+
+
+## Run it yourself
 
 You need [Node.js 22.12+](https://nodejs.org), [ffmpeg](https://ffmpeg.org), [Claude Code](https://claude.com/claude-code) and an [ElevenLabs](https://elevenlabs.io) account.
 
@@ -115,7 +143,7 @@ node kit/build-prompt.mjs   # regenerate prompt.md after editing prompt.src.md (
 
 ## The hosted version
 
-`agent.yaml` is the Starwish listing (the harness, the `make-audio` tool, tests). On Starwish the ElevenLabs key is held by the platform and the price covers the calls. To publish your own copy you need the Starwish CLI: `starwish credentials set ELEVENLABS_API_KEY --agent . --web`, `starwish doctor . --json`, `starwish dev . "Make a demo video." --params '{"url":"https://svelte.dev","format":"wide"}'`, then `starwish publish .`. Change `name` first.
+The agent is listed at **[starwish.ing/@yukitanaka/site-to-video](https://starwish.ing/@yukitanaka/site-to-video)**: the quick steps are at the top. `agent.yaml` is the Starwish listing (the harness, the `make-audio` tool, tests). On Starwish the ElevenLabs key is held by the platform and the price covers the calls. To publish your own copy you need the Starwish CLI: `starwish credentials set ELEVENLABS_API_KEY --agent . --web`, `starwish doctor . --json`, `starwish dev . "Make a demo video." --params '{"url":"https://svelte.dev","format":"wide"}'`, then `starwish publish .`. Change `name` first.
 
 ## Licenses
 
