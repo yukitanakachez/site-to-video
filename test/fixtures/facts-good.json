@@ -1,0 +1,11 @@
+{
+  "source": "https://fixture.dev",
+  "facts": [
+    { "id": "f1", "text": "Fixture", "where": "https://fixture.dev#t1" },
+    { "id": "f2", "text": "Fixture builds your site 10x faster", "where": "https://fixture.dev#t2" },
+    { "id": "f3", "text": "Connects to GitHub and Vercel", "where": "https://fixture.dev#t3" },
+    { "id": "f4", "text": "Run npx fixture init and see Site ready", "where": "README: Quick start" },
+    { "id": "f5", "text": "Open source and free to start", "where": "https://fixture.dev#t5" },
+    { "id": "f6", "text": "Fixture lives at https://fixture.dev", "where": "https://fixture.dev#t6" }
+  ]
+}

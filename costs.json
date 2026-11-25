@@ -1,0 +1,183 @@
+{
+  "agent": "site-to-video",
+  "components": [
+    {
+      "credential": "ANTHROPIC_API_KEY",
+      "host": "api.anthropic.com",
+      "id": "model-1",
+      "kind": "model",
+      "name": "claude-opus-5-5",
+      "notes": "claude-opus-5-5: input $4, output $20, 5-minute cache writes $5, 1-hour cache writes $8, cache hits $0.20 per million tokens; no long-context surcharge for Opus 5.5. Cache writes are priced at the 5-minute rate: it reproduces the harness-reported totals of dev runs 2 and 4 ($0.75, $0.77) within 3% (DECISIONS.md, Starwish dev runs), where the 1-hour rate would give about $0.92.",
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing (Model pricing table, Claude Opus 5.5, read 2026-11-24; same figures on https://claude.com/pricing)",
+      "unit_prices_usd": {
+        "input_per_million": 4,
+        "output_per_million": 20,
+        "cache_write_per_million": 5,
+        "cache_read_per_million": 0.2
+      }
+    },
+    {
+      "credential": "ELEVENLABS_API_KEY",
+      "host": "api.elevenlabs.io",
+      "id": "api-1",
+      "kind": "api",
+      "name": "ElevenLabs (make-audio: voice and music)",
+      "notes": "Per credit on Scale: $299 / 1,800,000 = $0.00016611. A video makes 2 calls (voice, then music). Credits per call are the tool caps, averaged: voice at most 540 characters = 540 credits (1 a character), music at most 22 + 8 = 30 s at about 15 credits a second = 450 credits; (540 + 450) / 2 = 495 credits = $0.0822 a call. Measured jobs used about 715-760 credits for the 2 calls (Task 12, Task 15, Task 13 estimates; the key cannot read its own usage), so this is a ceiling, about $0.04 a job above typical. The dollar list price on https://elevenlabs.io/pricing/api ($0.08 per 1,000 characters, music $0.15 a minute) gives about $0.10 a job, less again.",
+      "source": "https://elevenlabs.io/pricing (Scale: $299 a month, 1.8M credits, read 2026-11-24); the creator: Scale plan (Yuki confirmed the plan is settled)",
+      "unit_prices_usd": {
+        "per_call": 0.082225
+      }
+    }
+  ],
+  "how_to_fill": "Fill every unit_prices_usd value that is null, and source, for each component: look the price up on the provider's own pricing page (put the link in source) or ask the creator what they pay on their plan (source: \"the creator: <plan>\"). Never invent a price. Model prices are USD per million tokens of each kind; api is USD per call; subscription and resource are USD per request (0 when one request costs nothing extra, with the reason in notes). Add a component for any cost Starwish couldn't see, and add requests with observed: false and counted: true for heavier requests you expect (more input, more steps, retries, a cold cache), saying why in the label. A dev run that didn't complete with exit 0 has counted: false: its cost isn't what a request costs, so it's left out of the typical cost and the range. Then run `starwish price --worksheet <file>`.",
+  "platform": {
+    "fee_percent": 10,
+    "fee_rounding": "down",
+    "floor_rule": "A price P (whole stars, at least 10) pays the creator P minus 10% of P rounded down; 1000 stars = $1. The floor for a cost of C dollars is the lowest P whose payout is at least C × 1000 (about C × 1000 ÷ 0.9). `starwish price --worksheet <file>` works it out from the AI's filled-in worksheet.",
+    "min_price_stars": 10,
+    "stars_per_dollar": 1000
+  },
+  "requests": [
+    {
+      "counted": true,
+      "label": "dev run job_01M87ZH8C8TWNJ6MNX25KXZBVY (ok)",
+      "observed": true,
+      "unmeasured_model_calls": 2,
+      "usage": {
+        "api-1": {
+          "calls": 2
+        },
+        "model-1": {
+          "cache_read_tokens": 2279493,
+          "cache_write_tokens": 70679,
+          "calls": 41,
+          "input_tokens": 82,
+          "output_tokens": 16777
+        }
+      }
+    },
+    {
+      "counted": true,
+      "label": "dev run job_01M87YX3J470XMBGP59MR7CT82 (ok)",
+      "observed": true,
+      "unmeasured_model_calls": 2,
+      "usage": {
+        "api-1": {
+          "calls": 2
+        },
+        "model-1": {
+          "cache_read_tokens": 1338169,
+          "cache_write_tokens": 47847,
+          "calls": 33,
+          "input_tokens": 66,
+          "output_tokens": 12738
+        }
+      }
+    },
+    {
+      "counted": false,
+      "label": "dev run job_01M87YE3AT271960P3N7NNSP8R (failed)",
+      "observed": true,
+      "unmeasured_model_calls": 0,
+      "usage": {
+        "model-1": {
+          "cache_read_tokens": 117930,
+          "cache_write_tokens": 17013,
+          "calls": 6,
+          "input_tokens": 12,
+          "output_tokens": 987
+        }
+      }
+    },
+    {
+      "counted": true,
+      "label": "dev run job_01M87YDZ2YWPN86YNK9ND3SCZ3 (ok)",
+      "observed": true,
+      "unmeasured_model_calls": 2,
+      "usage": {
+        "api-1": {
+          "calls": 2
+        },
+        "model-1": {
+          "cache_read_tokens": 1127468,
+          "cache_write_tokens": 61536,
+          "calls": 27,
+          "input_tokens": 54,
+          "output_tokens": 10495
+        }
+      }
+    },
+    {
+      "counted": true,
+      "label": "dev run job_01M87YDYG30GMF95JZMF5G9F90 (ok)",
+      "observed": true,
+      "unmeasured_model_calls": 2,
+      "usage": {
+        "api-1": {
+          "calls": 2
+        },
+        "model-1": {
+          "cache_read_tokens": 1400506,
+          "cache_write_tokens": 51896,
+          "calls": 30,
+          "input_tokens": 60,
+          "output_tokens": 11281
+        }
+      }
+    },
+    {
+      "counted": true,
+      "label": "dev run job_01M87YDEAAKD115K9BW0FNBHDP (ok)",
+      "observed": true,
+      "unmeasured_model_calls": 2,
+      "usage": {
+        "api-1": {
+          "calls": 2
+        },
+        "model-1": {
+          "cache_read_tokens": 1123016,
+          "cache_write_tokens": 55831,
+          "calls": 29,
+          "input_tokens": 58,
+          "output_tokens": 12178
+        }
+      }
+    },
+    {
+      "counted": true,
+      "label": "dev run job_01M87XFWGV4EW990RA8F0MHF6Z (ok)",
+      "observed": true,
+      "unmeasured_model_calls": 2,
+      "usage": {
+        "api-1": {
+          "calls": 2
+        },
+        "model-1": {
+          "cache_read_tokens": 1123224,
+          "cache_write_tokens": 53096,
+          "calls": 31,
+          "input_tokens": 62,
+          "output_tokens": 12903
+        }
+      }
+    },
+    {
+      "counted": true,
+      "observed": false,
+      "label": "heavy request (not observed): cold prompt cache, two frame-review rounds (three renders, a recorded clip re-recorded), two voice and two music calls. Tokens: above the highest of every run so far, local and on Starwish (the Task 14 local raycast.com run with a clip: 134,763 cache writes, 4,407,681 cache reads, 29,997 output, $2.16), plus 25,000 cache writes for a system prompt and tool list not yet cached (prompt.md is about 6,500 tokens; the preset adds its own).",
+      "usage": {
+        "api-1": {
+          "calls": 4
+        },
+        "model-1": {
+          "calls": 60,
+          "input_tokens": 100,
+          "cache_write_tokens": 160000,
+          "cache_read_tokens": 4500000,
+          "output_tokens": 30000
+        }
+      }
+    }
+  ],
+  "worksheet": 1
+}

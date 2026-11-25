@@ -1,0 +1,106 @@
+[
+  {
+    "id": "e1",
+    "role": "logo",
+    "box": {
+      "x": 48,
+      "y": 20,
+      "w": 32,
+      "h": 32
+    },
+    "text": "",
+    "hoverable": false,
+    "animates": false
+  },
+  {
+    "id": "e2",
+    "role": "headline",
+    "box": {
+      "x": 310,
+      "y": 193,
+      "w": 820,
+      "h": 134
+    },
+    "text": "Fixture builds your site 10x faster",
+    "hoverable": false,
+    "animates": true
+  },
+  {
+    "id": "e3",
+    "role": "subhead",
+    "box": {
+      "x": 410,
+      "y": 343,
+      "w": 620,
+      "h": 46
+    },
+    "text": "Describe the site you want in plain words. Fixture writes it, previews it and ships it.",
+    "hoverable": false,
+    "animates": true
+  },
+  {
+    "id": "e4",
+    "role": "cta",
+    "box": {
+      "x": 560,
+      "y": 421,
+      "w": 136,
+      "h": 50
+    },
+    "text": "Get started",
+    "hoverable": true,
+    "animates": false
+  },
+  {
+    "id": "e5",
+    "role": "example-button",
+    "box": {
+      "x": 710,
+      "y": 421,
+      "w": 170,
+      "h": 50
+    },
+    "text": "Try an example",
+    "hoverable": true,
+    "animates": false
+  },
+  {
+    "id": "e6",
+    "role": "feature",
+    "box": {
+      "x": 204,
+      "y": 1093,
+      "w": 329,
+      "h": 191
+    },
+    "text": "⚡ 10x faster Fixture builds your site 10x faster than starting from a blank editor.",
+    "hoverable": false,
+    "animates": false
+  },
+  {
+    "id": "e7",
+    "role": "feature",
+    "box": {
+      "x": 555,
+      "y": 1093,
+      "w": 329,
+      "h": 191
+    },
+    "text": "⇄ Your tools Connects to GitHub and Vercel, so your work ships where you keep it.",
+    "hoverable": false,
+    "animates": false
+  },
+  {
+    "id": "e8",
+    "role": "feature",
+    "box": {
+      "x": 907,
+      "y": 1093,
+      "w": 329,
+      "h": 191
+    },
+    "text": "♡ Free to start Open source and free to start. Bring your own domain when you are ready.",
+    "hoverable": false,
+    "animates": false
+  }
+]

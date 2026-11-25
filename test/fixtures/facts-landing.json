@@ -1,0 +1,40 @@
+{
+  "source": "{{BASE}}/landing.html",
+  "facts": [
+    {
+      "id": "f1",
+      "text": "Fixture",
+      "where": "{{BASE}}/landing.html#t2"
+    },
+    {
+      "id": "f2",
+      "text": "Ship faster with Fixture",
+      "where": "{{BASE}}/landing.html#t2"
+    },
+    {
+      "id": "f3",
+      "text": "Fixture turns your release checklist into one calm dashboard for the whole team.",
+      "where": "{{BASE}}/landing.html#t3"
+    },
+    {
+      "id": "f4",
+      "text": "Lay out every release step with owners and dates.",
+      "where": "{{BASE}}/landing.html#t10"
+    },
+    {
+      "id": "f5",
+      "text": "See what is blocked at a glance, without a meeting.",
+      "where": "{{BASE}}/landing.html#t11"
+    },
+    {
+      "id": "f6",
+      "text": "One button sends the notes to everyone who cares.",
+      "where": "{{BASE}}/landing.html#t12"
+    },
+    {
+      "id": "f7",
+      "text": "Fixture is built for teams that release every week and want fewer surprises on the day.",
+      "where": "{{BASE}}/landing.html#t13"
+    }
+  ]
+}

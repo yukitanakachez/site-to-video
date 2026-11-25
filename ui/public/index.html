@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site to Video</title>
+<meta name="description" content="Turn any public link into a 15 to 20 second narrated demo video, on your own machine and your own keys.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M12 9.5v13l11-6.5z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M12 9.5v13l11-6.5z" fill="#fff"/></svg></span> Site to Video</div>
+  <nav>
+    <a class="link" href="https://starwish.ing/@yukitanaka/site-to-video" target="_blank" rel="noopener">Hosted on Starwish</a>
+    <button id="open-setup" class="ghost" type="button"><span id="setup-dot" class="dot" aria-hidden="true"></span> Setup</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Paste a link. Get a narrated demo video.</h1>
+    <p class="sub">A website, a GitHub repo or any public page becomes a 15 to 20 second video with voiceover, captions and music. Runs on your machine, with your own keys.</p>
+  </section>
+
+  <section id="setup-banner" class="banner" hidden>
+    <strong>One step before your first video.</strong>
+    <span id="setup-banner-text"></span>
+    <button id="banner-setup" class="primary small" type="button">Open setup</button>
+  </section>
+
+  <section class="card" id="make">
+    <form id="form" autocomplete="off">
+      <label class="field">
+        <span class="label">Link</span>
+        <input id="url" name="url" type="url" inputmode="url" placeholder="https://github.com/sharkdp/hyperfine" required spellcheck="false">
+      </label>
+
+      <div class="row">
+        <fieldset class="field seg" aria-label="Video shape">
+          <legend class="label">Shape</legend>
+          <label><input type="radio" name="format" value="wide" checked><span><i class="shape wide"></i>Wide <small>1920×1080</small></span></label>
+          <label><input type="radio" name="format" value="tall"><span><i class="shape tall"></i>Tall <small>1080×1920</small></span></label>
+        </fieldset>
+        <label class="field grow">
+          <span class="label">Model</span>
+          <select id="model" name="model"></select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="label">Wishes <em>optional</em></span>
+        <textarea id="request" name="request" rows="2" maxlength="1000" placeholder="Calm tone. Focus on the install step."></textarea>
+      </label>
+
+      <div class="actions">
+        <button id="go" class="primary" type="submit">Make the video</button>
+        <span id="form-error" class="error" role="alert"></span>
+      </div>
+      <p class="hint">Takes about 5 to 12 minutes. A typical video costs roughly $1 in model and voice calls, billed to your own accounts.</p>
+    </form>
+  </section>
+
+  <section id="progress" class="card" hidden aria-live="polite">
+    <div class="progress-head">
+      <div>
+        <div class="label">Making your video</div>
+        <div id="progress-url" class="mono small"></div>
+      </div>
+      <div class="progress-side"><span id="elapsed" class="mono">0:00</span><button id="stop" class="ghost small" type="button">Stop</button></div>
+    </div>
+    <ol id="steps" class="steps"></ol>
+    <p id="now" class="now"></p>
+    <details class="log"><summary>Show the log</summary><pre id="log"></pre></details>
+  </section>
+
+  <section id="result" class="card" hidden>
+    <div id="result-body"></div>
+  </section>
+
+  <section id="history-section" hidden>
+    <h2>Earlier videos</h2>
+    <div id="history" class="grid"></div>
+  </section>
+</main>
+
+<dialog id="setup">
+  <form method="dialog" class="dialog-head"><h2>Setup</h2><button class="ghost small" aria-label="Close">Close</button></form>
+  <p class="sub small">Everything the app needs, and whether it is ready. Your keys are saved only on this computer, in <code>.env.local</code>, and are never shown again.</p>
+
+  <ul id="checks" class="checks"></ul>
+
+  <div class="keys">
+    <div class="keybox" id="box-eleven">
+      <div class="keyhead"><strong>ElevenLabs key</strong> <span class="pill req">required</span> <span id="eleven-state" class="state"></span></div>
+      <p class="small muted">Makes the voiceover and the music. Create one at <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener">elevenlabs.io → API keys</a>. Give it text to speech and music permissions. A paid ElevenLabs plan may be needed for the voices and music.</p>
+      <div class="inline"><input id="key-eleven" type="password" placeholder="Paste your ElevenLabs key" autocomplete="off" spellcheck="false"><button id="save-eleven" class="primary small" type="button">Save</button></div>
+      <p id="msg-eleven" class="small"></p>
+    </div>
+
+    <div class="keybox" id="box-claude">
+      <div class="keyhead"><strong>Claude</strong> <span class="pill">uses your Claude Code login</span> <span id="claude-state" class="state"></span></div>
+      <p class="small muted">By default the app uses the Claude Code you are signed in to (run <code>claude</code> once in a terminal to sign in). Prefer to pay by the token? Add an Anthropic API key instead.</p>
+      <details><summary class="small">Use an Anthropic API key instead</summary>
+        <div class="inline"><input id="key-anthropic" type="password" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"><button id="save-anthropic" class="ghost small" type="button">Save</button></div>
+        <p id="msg-anthropic" class="small"></p>
+      </details>
+    </div>
+  </div>
+</dialog>
+
+<footer>
+  <span>Open source, MIT. Your keys never leave this computer except to call ElevenLabs and Anthropic.</span>
+  <a href="https://starwish.ing/@yukitanaka/site-to-video" target="_blank" rel="noopener">Or hire the hosted agent on Starwish</a>
+</footer>
+<script src="/app.js" type="module"></script>
+</body>
+</html>

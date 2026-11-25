@@ -1,0 +1,127 @@
+#!/usr/bin/env node
+// make-audio: the only paid call in a job (ElevenLabs). One call per run.
+//   make-audio voice <voice_id> <text>
+//   make-audio music <prompt> <seconds>
+// Files go to $STARWISH_OUTPUT_DIR. The key is read from $ELEVENLABS_API_KEY.
+// The agent makes no sound effects (spec 16.2); a `sound` request is refused.
+//
+// IMPORTANT: these files (voice.mp3, voice-alignment.json, music.mp3) are intermediate inputs to
+// the renderer ONLY. They must never be listed as customer outputs: ElevenLabs' terms bar handing
+// over narration or music as separate audio files. Only the finished mixed video ships.
+//
+// Per-call limits are enforced here; per-job limits (max 2 calls per action) are
+// enforced by the package gate via audioCallsMade().
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+
+const BASE = (process.env.ELEVENLABS_BASE_URL || 'https://api.elevenlabs.io').replace(/\/$/, '');
+const FORMAT = 'mp3_44100_128';
+const MUSIC_TAIL_SEC = 8;
+const VOICES = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'voices.json'), 'utf8'));
+const { pace, voiceSpeed, voicePlayback } = require('../lib/pace.cjs');
+
+function refuse(msg) { console.error(`make-audio: ${msg}`); process.exit(2); }
+function fail(msg) { console.error(`make-audio: ${msg}`); process.exit(1); }
+
+// The prompt rules (no quotes, apostrophes or artist/song cue words) live in lib/audio-prompt.cjs,
+// shared with the shot-list validator.
+const { promptProblem, VOICE_MAX_WORDS, VOICE_MAX_CHARS } = require('../lib/audio-prompt.cjs');
+function checkPrompt(p, max, what) {
+  if (typeof p !== 'string' || !p.trim()) refuse(`${what} prompt is empty`);
+  if (p.length > max) refuse(`${what} prompt is over ${max} characters`);
+  const bad = promptProblem(p);
+  if (bad) refuse(`${what} prompt refused: contains ${bad}. Describe mood and instruments only; never name an artist, song, album, label or publisher, and never include lyrics.`);
+}
+
+const outDir = process.env.STARWISH_OUTPUT_DIR;
+const key = process.env.ELEVENLABS_API_KEY;
+
+function record(action, extra) {
+  fs.writeFileSync(path.join(outDir, `make-audio-${action}.json`), JSON.stringify({ action, at: new Date().toISOString(), ...extra }));
+}
+function write(name, buf) { fs.writeFileSync(path.join(outDir, name), buf); }
+
+async function call(urlPath, body) {
+  let res;
+  try {
+    res = await fetch(`${BASE}${urlPath}${urlPath.includes('?') ? '&' : '?'}output_format=${FORMAT}`, {
+      method: 'POST',
+      headers: { 'xi-api-key': key, 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch (e) { fail(`could not reach ElevenLabs: ${e.message}`); }
+  if (!res.ok) {
+    const detail = (await res.text().catch(() => '')).slice(0, 300);
+    fail(`ElevenLabs returned HTTP ${res.status}${detail ? `: ${detail}` : ''}`);
+  }
+  return res;
+}
+
+function wordsFrom(al) {
+  const { characters: ch, character_start_times_seconds: s, character_end_times_seconds: e } = al;
+  const words = [];
+  let cur = null;
+  for (let i = 0; i < ch.length; i++) {
+    if (/\s/.test(ch[i])) { if (cur) { words.push(cur); cur = null; } continue; }
+    if (!cur) cur = { word: '', startSec: s[i], endSec: e[i] };
+    cur.word += ch[i];
+    cur.endSec = e[i];
+  }
+  if (cur) words.push(cur);
+  return words;
+}
+
+async function voice(args) {
+  const [id, text] = args;
+  if (!VOICES.some((v) => v.id === id)) refuse(`unknown voice id; use one from config/voices.json`);
+  if (typeof text !== 'string' || !text.trim()) refuse('text is empty');
+  const words = text.trim().split(/\s+/).length;
+  if (words > VOICE_MAX_WORDS) refuse(`text has ${words} words; the limit is ${VOICE_MAX_WORDS}`);
+  if (text.length > VOICE_MAX_CHARS) refuse(`text has ${text.length} characters; the limit is ${VOICE_MAX_CHARS}`);
+  // The video is paced faster than normal (lib/pace.cjs): ElevenLabs speaks as fast as it allows
+  // (or slower, if that alone would beat the pace), and the renderer then sets this clip's tempo
+  // from its own speaking rate (voicePlayback), slowing it or speeding it up so it is heard at the
+  // voice's normal rate times the pace, without changing its pitch.
+  const speed = voiceSpeed();
+  record('voice', { words, speed });
+  const res = await call(`/v1/text-to-speech/${encodeURIComponent(id)}/with-timestamps`, { text, voice_settings: { speed } });
+  const j = await res.json();
+  if (!j.audio_base64 || !j.alignment) fail('ElevenLabs response had no audio or alignment');
+  write('voice.mp3', Buffer.from(j.audio_base64, 'base64'));
+  const ws = wordsFrom(j.alignment);
+  // Timings are in seconds of voice.mp3 as ElevenLabs made it, at this speed.
+  const alignment = { speed, words: ws };
+  write('voice-alignment.json', JSON.stringify(alignment));
+  // In plan-seconds, the shot list's unit: where the narration ends as heard in the video (the
+  // renderer's tempo for this clip, lib/pace.cjs voicePlayback), times the pace.
+  const p = pace();
+  const { tempo } = voicePlayback(alignment, VOICES.find((v) => v.id === id)?.wordsPerSec, p);
+  const heardEnd = ws.length ? ws[ws.length - 1].endSec / tempo : 0;
+  console.log(JSON.stringify({ file: 'voice.mp3', planSec: Math.round(heardEnd * p * 1000) / 1000 }));
+}
+
+async function music(args) {
+  const [prompt, secs] = args;
+  checkPrompt(prompt, 200, 'music');
+  const n = Number(secs);
+  if (!Number.isFinite(n)) refuse('seconds must be a number');
+  const seconds = Math.min(22, Math.max(15, n));
+  record('music', { seconds });
+  // ElevenLabs winds a bed down over its last few seconds; ask for more than the video needs so the
+  // bed is still playing at the end card, where the renderer fades it out itself.
+  const res = await call('/v1/music', { prompt, music_length_ms: Math.round((seconds + MUSIC_TAIL_SEC) * 1000), force_instrumental: true });
+  write('music.mp3', Buffer.from(await res.arrayBuffer()));
+  console.log(JSON.stringify({ file: 'music.mp3', seconds }));
+}
+
+(async () => {
+  const [action, ...args] = process.argv.slice(2);
+  const actions = { voice, music };
+  if (action === 'sound') refuse('sound effects are not used: the video has narration and music only');
+  if (!actions[action]) refuse('usage: make-audio voice <voice_id> <text> | music <prompt> <seconds>');
+  if (!outDir) refuse('STARWISH_OUTPUT_DIR is required');
+  if (!key) refuse('ELEVENLABS_API_KEY is not set');
+  fs.mkdirSync(outDir, { recursive: true });
+  await actions[action](args);
+})();

@@ -1,0 +1,8 @@
+node_modules/
+runs/
+local-runs/
+starwish-runs/
+.env
+.env.*
+!.env.example
+.DS_Store

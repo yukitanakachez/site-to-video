@@ -1,0 +1,27 @@
+{
+  "name": "site-to-video",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "start": "node ui/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:render": "node --test test/render/*.test.mjs"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@remotion/bundler": "4.0.547",
+    "@remotion/cli": "4.0.547",
+    "@remotion/renderer": "4.0.547",
+    "puppeteer-core": "25.18.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.547"
+  },
+  "description": "Turn any public link into a narrated 15 to 20 second demo video. A local app with your own keys.",
+  "license": "MIT"
+}

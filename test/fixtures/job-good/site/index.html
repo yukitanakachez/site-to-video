@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixture: build your site 10x faster</title>
+<!-- Test fixture: a landing page with an entrance animation and hover effects, used to make the
+     job-good captures (captures/page.png, clips/m2.mp4). Not a real product. -->
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#14122b;background:#f6f5ff}
+header{display:flex;align-items:center;justify-content:space-between;padding:20px 48px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px}
+.brand svg{width:32px;height:32px}
+nav a{color:#4b4869;text-decoration:none;margin-left:28px;font-size:15px}
+.hero{text-align:center;padding:72px 24px 40px}
+.pill{display:inline-block;padding:6px 14px;border-radius:999px;background:#e9e5ff;color:#5b3df5;font-size:14px;font-weight:600}
+h1{font-size:64px;line-height:1.05;letter-spacing:-0.03em;margin:20px auto 16px;max-width:820px;animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+h1 em{font-style:normal;color:#5b3df5}
+.sub{font-size:20px;color:#55526f;max-width:620px;margin:0 auto 32px;animation:rise .9s .15s cubic-bezier(.2,.7,.2,1) both}
+.actions{display:flex;gap:14px;justify-content:center;animation:rise .9s .3s cubic-bezier(.2,.7,.2,1) both}
+.btn{border:0;border-radius:12px;padding:15px 26px;font-size:16px;font-weight:600;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+.primary{background:#5b3df5;color:#fff;box-shadow:0 8px 24px rgba(91,61,245,.3)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(91,61,245,.45);background:#4c2ff0}
+.ghost{background:#fff;color:#14122b;border:1px solid #dcd8f2}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.shot{max-width:1080px;margin:48px auto 0;border-radius:18px;background:#fff;box-shadow:0 30px 80px rgba(40,30,110,.18);overflow:hidden;border:1px solid #e4e1f5}
+.bar{display:flex;gap:8px;padding:14px 18px;background:#f1effb}
+.bar i{width:12px;height:12px;border-radius:50%;background:#d9d5ee;display:block}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:420px}
+.side{background:#faf9ff;border-right:1px solid #eeecf8;padding:22px}
+.side div{height:12px;border-radius:6px;background:#e6e2f7;margin-bottom:16px}
+.side div:first-child{background:#5b3df5;width:70%}
+.main{padding:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-content:start}
+.tile{height:120px;border-radius:12px;background:linear-gradient(135deg,#efeaff,#fbe9f3)}
+.tile.wide{grid-column:span 2;background:linear-gradient(135deg,#e5f3ff,#efeaff)}
+.prompt{grid-column:span 3;border:1px solid #e4e1f5;border-radius:12px;padding:16px 18px;color:#55526f;font-size:15px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1080px;margin:72px auto;padding:0 24px}
+.card{background:#fff;border:1px solid #e4e1f5;border-radius:16px;padding:26px;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(40,30,110,.14);border-color:#b9acff}
+.card b{display:block;font-size:20px;margin:14px 0 8px}
+.card p{margin:0;color:#55526f;line-height:1.5}
+.icon{width:44px;height:44px;border-radius:12px;background:#ede9ff;display:grid;place-items:center;color:#5b3df5;font-weight:800}
+footer{text-align:center;padding:40px;color:#55526f}
+@media (max-width:600px){
+  header{padding:16px 20px} nav{display:none}
+  .hero{padding:40px 20px 24px} h1{font-size:40px} .sub{font-size:17px}
+  .actions{flex-direction:column;align-items:center}
+  .app{grid-template-columns:1fr} .side{display:none} .main{grid-template-columns:1fr 1fr}
+  .tile.wide{grid-column:span 2} .prompt{grid-column:span 2}
+  .shot{margin:32px 16px 0}
+  .cards{grid-template-columns:1fr;margin:40px auto}
+}
+</style></head><body>
+<header>
+  <div class="brand"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#5b3df5"/><path d="M10 9h13v4h-8.5v3.5H21v4h-6.5V24H10z" fill="#fff"/></svg>Fixture</div>
+  <nav><a href="/docs">Docs</a><a href="/pricing">Pricing</a><a href="https://github.com/fixture/fixture">GitHub</a></nav>
+</header>
+<section class="hero">
+  <span class="pill">Open source and free to start</span>
+  <h1>Fixture builds your site <em>10x faster</em></h1>
+  <p class="sub">Describe the site you want in plain words. Fixture writes it, previews it and ships it.</p>
+  <div class="actions"><button class="btn primary">Get started</button><button class="btn ghost">Try an example</button></div>
+</section>
+<div class="shot">
+  <div class="bar"><i></i><i></i><i></i></div>
+  <div class="app">
+    <div class="side"><div></div><div></div><div></div><div></div><div></div></div>
+    <div class="main">
+      <div class="prompt">“A landing page for my bakery, warm colours, an order button.”</div>
+      <div class="tile wide"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    </div>
+  </div>
+</div>
+<section class="cards">
+  <div class="card"><div class="icon">⚡</div><b>10x faster</b><p>Fixture builds your site 10x faster than starting from a blank editor.</p></div>
+  <div class="card"><div class="icon">⇄</div><b>Your tools</b><p>Connects to GitHub and Vercel, so your work ships where you keep it.</p></div>
+  <div class="card"><div class="icon">♡</div><b>Free to start</b><p>Open source and free to start. Bring your own domain when you are ready.</p></div>
+</section>
+<footer>Fixture lives at https://fixture.dev</footer>
+</body></html>

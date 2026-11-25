@@ -1,0 +1,32 @@
+# Not uploaded at publish (same syntax as .gitignore). The builds re-create these.
+node_modules/
+.harness/
+.copilot-pkg/
+.pydeps/
+preset/codex-catalog.json
+__pycache__/
+.venv/
+*.log
+# Keys go in with `starwish credentials set <name>`, never in a file.
+.env
+.env.*
+# Local-only work: spikes, local runs and tests never go to the work machine.
+# A leading slash keeps each pattern to the top level (see DECISIONS.md, Repo to Live Site lesson).
+/spikes/
+/local/
+/local-runs/
+/test/
+DECISIONS.md
+# macOS and local tool clutter; downloaded dev-run videos (Task 13).
+.DS_Store
+/.impeccable/
+/starwish-runs/
+# The cost worksheet behind the price (Task 14): for Yuki, not for customers.
+/costs.json
+# The local app, its docs and the setup script are for running it on your own machine.
+/ui/
+/docs/
+/scripts/
+/runs/
+/local-runs/
+.env.example

@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "format": "wide",
+  "fps": 30,
+  "durationSec": 20.8,
+  "voice": "g7LVvkPWALzPxOQbF6OE",
+  "musicBrief": "Light, upbeat electronic bed, steady pulse, no vocals.",
+  "voiceStartSec": 0,
+  "narration": [
+    {
+      "id": "n1",
+      "text": "Meet Fixture.",
+      "facts": []
+    },
+    {
+      "id": "n2",
+      "text": "Fixture builds your site 10x faster from a plain description.",
+      "facts": [
+        "f2"
+      ]
+    },
+    {
+      "id": "n3",
+      "text": "It connects to GitHub and Vercel, so your work ships where you keep it.",
+      "facts": [
+        "f3"
+      ]
+    },
+    {
+      "id": "n4",
+      "text": "Start a project with one command, and deploy it with another.",
+      "facts": [
+        "f4",
+        "f7"
+      ]
+    },
+    {
+      "id": "n5",
+      "text": "Open source, free to start.",
+      "facts": [
+        "f5"
+      ]
+    },
+    {
+      "id": "n6",
+      "text": "Try it at fixture.dev.",
+      "facts": [
+        "f6"
+      ]
+    }
+  ],
+  "moments": [
+    {
+      "id": "m1",
+      "startSec": 0.0,
+      "endSec": 5.85,
+      "source": {
+        "type": "screenshot",
+        "file": "captures/page.png"
+      },
+      "camera": {
+        "from": {
+          "x": 0,
+          "y": 0,
+          "w": 2880,
+          "h": 1620
+        },
+        "to": {
+          "x": 480,
+          "y": 200,
+          "w": 1920,
+          "h": 1080
+        },
+        "easing": "inOut"
+      },
+      "caption": {
+        "text": "Build your site 10x faster",
+        "facts": [
+          "f2"
+        ]
+      },
+      "cursor": [
+        {
+          "atSec": 3.9,
+          "x": 1256,
+          "y": 892,
+          "click": false
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "startSec": 5.85,
+      "endSec": 11.05,
+      "source": {
+        "type": "clip",
+        "file": "clips/m2.mp4"
+      },
+      "camera": {
+        "from": {
+          "x": 0,
+          "y": 0,
+          "w": 2880,
+          "h": 1620
+        },
+        "to": {
+          "x": 360,
+          "y": 400,
+          "w": 2160,
+          "h": 1215
+        },
+        "easing": "out"
+      },
+      "caption": {
+        "text": "Connects to GitHub and Vercel",
+        "facts": [
+          "f3"
+        ]
+      },
+      "cursor": [
+        {
+          "atSec": 2.08,
+          "x": 1440,
+          "y": 1090,
+          "click": false
+        },
+        {
+          "atSec": 3.64,
+          "x": 2144,
+          "y": 1090,
+          "click": false
+        }
+      ]
+    },
+    {
+      "id": "m3",
+      "startSec": 11.05,
+      "endSec": 17.55,
+      "source": {
+        "type": "terminal",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "npx fixture init",
+            "fact": "f4"
+          },
+          {
+            "kind": "out",
+            "text": "Site ready",
+            "fact": "f4"
+          },
+          {
+            "kind": "cmd",
+            "text": "npx fixture deploy --prod",
+            "fact": "f7"
+          },
+          {
+            "kind": "out",
+            "text": "Deployed to fixture.dev in 12s",
+            "fact": "f7"
+          }
+        ]
+      },
+      "caption": {
+        "text": "Open source and free to start",
+        "facts": [
+          "f5"
+        ]
+      },
+      "cursor": []
+    },
+    {
+      "id": "m4",
+      "startSec": 17.55,
+      "endSec": 20.8,
+      "source": {
+        "type": "endcard",
+        "title": "Fixture",
+        "url": "https://fixture.dev",
+        "logo": "captures/logo.png"
+      },
+      "caption": null,
+      "cursor": []
+    }
+  ]
+}

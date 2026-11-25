@@ -1,0 +1,106 @@
+[
+  {
+    "id": "e1",
+    "role": "logo",
+    "box": {
+      "x": 20,
+      "y": 16,
+      "w": 32,
+      "h": 32
+    },
+    "text": "",
+    "hoverable": false,
+    "animates": false
+  },
+  {
+    "id": "e2",
+    "role": "headline",
+    "box": {
+      "x": 20,
+      "y": 153,
+      "w": 372,
+      "h": 84
+    },
+    "text": "Fixture builds your site 10x faster",
+    "hoverable": false,
+    "animates": true
+  },
+  {
+    "id": "e3",
+    "role": "subhead",
+    "box": {
+      "x": 20,
+      "y": 253,
+      "w": 372,
+      "h": 40
+    },
+    "text": "Describe the site you want in plain words. Fixture writes it, previews it and ships it.",
+    "hoverable": false,
+    "animates": true
+  },
+  {
+    "id": "e4",
+    "role": "cta",
+    "box": {
+      "x": 138,
+      "y": 325,
+      "w": 136,
+      "h": 48
+    },
+    "text": "Get started",
+    "hoverable": true,
+    "animates": false
+  },
+  {
+    "id": "e5",
+    "role": "example-button",
+    "box": {
+      "x": 121,
+      "y": 387,
+      "w": 170,
+      "h": 50
+    },
+    "text": "Try an example",
+    "hoverable": true,
+    "animates": false
+  },
+  {
+    "id": "e6",
+    "role": "feature",
+    "box": {
+      "x": 24,
+      "y": 1115,
+      "w": 364,
+      "h": 191
+    },
+    "text": "⚡ 10x faster Fixture builds your site 10x faster than starting from a blank editor.",
+    "hoverable": false,
+    "animates": false
+  },
+  {
+    "id": "e7",
+    "role": "feature",
+    "box": {
+      "x": 24,
+      "y": 1328,
+      "w": 364,
+      "h": 191
+    },
+    "text": "⇄ Your tools Connects to GitHub and Vercel, so your work ships where you keep it.",
+    "hoverable": false,
+    "animates": false
+  },
+  {
+    "id": "e8",
+    "role": "feature",
+    "box": {
+      "x": 24,
+      "y": 1541,
+      "w": 364,
+      "h": 191
+    },
+    "text": "♡ Free to start Open source and free to start. Bring your own domain when you are ready.",
+    "hoverable": false,
+    "animates": false
+  }
+]

@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "format": "wide",
+  "fps": 30,
+  "durationSec": 20.8,
+  "voice": "g7LVvkPWALzPxOQbF6OE",
+  "musicBrief": "Light, upbeat electronic bed, steady pulse, no vocals.",
+  "voiceStartSec": 0,
+  "narration": [
+    {
+      "id": "n1",
+      "text": "Meet Fixture.",
+      "facts": []
+    },
+    {
+      "id": "n2",
+      "text": "Ship faster with Fixture: it turns your release checklist into one dashboard.",
+      "facts": [
+        "f2",
+        "f3"
+      ]
+    },
+    {
+      "id": "n3",
+      "text": "Lay out every release step with owners and dates.",
+      "facts": [
+        "f4"
+      ]
+    },
+    {
+      "id": "n4",
+      "text": "See what is blocked at a glance, without a meeting.",
+      "facts": [
+        "f5"
+      ]
+    },
+    {
+      "id": "n5",
+      "text": "One button sends the notes to everyone who cares.",
+      "facts": [
+        "f6"
+      ]
+    },
+    {
+      "id": "n6",
+      "text": "Try it at Fixture.",
+      "facts": [
+        "f1"
+      ]
+    }
+  ],
+  "moments": [
+    {
+      "id": "m1",
+      "startSec": 0.0,
+      "endSec": 6.5,
+      "source": {
+        "type": "screenshot",
+        "file": "captures/page.png"
+      },
+      "camera": {
+        "from": {
+          "x": 0,
+          "y": 0,
+          "w": 2880,
+          "h": 1620
+        },
+        "to": {
+          "x": 480,
+          "y": 200,
+          "w": 1920,
+          "h": 1080
+        },
+        "easing": "inOut"
+      },
+      "caption": {
+        "text": "Ship faster with Fixture",
+        "facts": [
+          "f2"
+        ]
+      },
+      "cursor": []
+    },
+    {
+      "id": "m2",
+      "startSec": 6.5,
+      "endSec": 13.0,
+      "source": {
+        "type": "clip",
+        "file": "clips/m2.mp4"
+      },
+      "camera": {
+        "from": {
+          "x": 0,
+          "y": 0,
+          "w": 2880,
+          "h": 1620
+        },
+        "to": {
+          "x": 360,
+          "y": 400,
+          "w": 2160,
+          "h": 1215
+        },
+        "easing": "out"
+      },
+      "caption": {
+        "text": "Lay out every release step",
+        "facts": [
+          "f4"
+        ]
+      },
+      "cursor": []
+    },
+    {
+      "id": "m3",
+      "startSec": 13.0,
+      "endSec": 17.55,
+      "source": {
+        "type": "screenshot",
+        "file": "captures/page.png"
+      },
+      "camera": {
+        "from": {
+          "x": 0,
+          "y": 456,
+          "w": 2880,
+          "h": 1620
+        },
+        "to": {
+          "x": 960,
+          "y": 996,
+          "w": 1920,
+          "h": 1080
+        },
+        "easing": "inOut"
+      },
+      "caption": {
+        "text": "Fewer surprises on the day",
+        "facts": [
+          "f7"
+        ]
+      },
+      "cursor": []
+    },
+    {
+      "id": "m4",
+      "startSec": 17.55,
+      "endSec": 20.8,
+      "source": {
+        "type": "endcard",
+        "title": "Fixture",
+        "url": "{{BASE}}/landing.html"
+      },
+      "caption": null,
+      "cursor": []
+    }
+  ]
+}
